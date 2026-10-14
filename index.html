@@ -1,0 +1,1449 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vèrtex Talent ETT | Connectem talent amb empreses.</title>
+<meta name="description" content="Vèrtex Talent ETT, empresa de treball temporal a la Seu d'Urgell. Ofertes de feina a l'Alt Urgell, la Cerdanya i Andorra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 9 20 35 35 9' fill='none' stroke='%230C4DA2' stroke-width='5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M14 13 20 4 26 13' fill='none' stroke='%230C4DA2' stroke-width='4' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+/* =====================================================================
+   IMATGE CORPORATIVA (document "Comunicació interna", apartat 1)
+   Blau La Salle #0C4DA2 : títols, menú, botons i logo
+   Gris fosc     #404040 : textos, subtítols i línies
+   Blau molt clar #EEF3FA: fons de les seccions
+   Blanc         #FFFFFF : fons general
+   Lletra: Montserrat a tota la web i a les ofertes
+   Només es fan servir aquests 4 colors (i transparències d'aquests).
+   L'únic color extra és el vermell dels missatges d'error dels formularis.
+   Radis: targetes 22px, camps 12px, botons i etiquetes en píndola.
+   ===================================================================== */
+:root{
+  --blau:#0C4DA2;
+  --gris:#404040;
+  --blau-clar:#EEF3FA;
+  --blanc:#FFFFFF;
+  --linia:rgba(64,64,64,.16);
+  --linia-camp:rgba(64,64,64,.38);
+  --error:#B3261E;
+  --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out:cubic-bezier(0.77, 0, 0.175, 1);
+  --r-card:22px;
+  --r-field:12px;
+  --shadow:0 18px 50px -18px rgba(12,77,162,.30);
+  --nav-h:72px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
+body{margin:0;font-family:"Montserrat",system-ui,sans-serif;color:var(--gris);background:var(--blanc);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{color:var(--blau);line-height:1.08;margin:0;letter-spacing:-0.025em}
+h2{font-size:clamp(2.1rem,4.4vw,3.6rem);font-weight:900}
+h3{font-size:1.25rem;font-weight:800;letter-spacing:-0.01em}
+p{margin:0}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+.nowrap{white-space:nowrap}
+:focus-visible{outline:3px solid var(--blau);outline-offset:3px;border-radius:6px}
+
+/* Barra de progrés de lectura (CSS scroll-driven, si el navegador ho permet) */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--blau);transform-origin:0 50%;transform:scaleX(0);z-index:60}
+@supports (animation-timeline: scroll()){
+  .progress{animation:grow linear both;animation-timeline:scroll(root)}
+  @keyframes grow{to{transform:scaleX(1)}}
+}
+
+/* ===== Logo: V en forma de cim ===== */
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--blau)}
+.logo svg{width:38px;height:38px;flex:none;transition:transform .5s var(--ease-out)}
+.logo-txt{display:flex;flex-direction:column;line-height:1}
+.logo-txt b{font-weight:900;font-size:1.05rem;letter-spacing:.02em}
+.logo-txt small{font-size:.62rem;font-weight:600;color:var(--gris);letter-spacing:.08em;margin-top:4px}
+@media (hover:hover) and (pointer:fine){a.logo:hover svg{transform:translateY(-2px)}}
+
+/* ===== Menú ===== */
+.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(255,255,255,.86);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid var(--linia)}
+.nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav ul{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.nav ul a{display:block;padding:8px 13px;border-radius:999px;text-decoration:none;font-weight:700;font-size:.88rem;color:var(--blau);white-space:nowrap;transition:background-color .2s ease}
+.nav ul a:hover,.nav ul a[aria-current="true"]{background:var(--blau-clar)}
+.menu-btn{display:none;border:0;background:var(--blau-clar);color:var(--blau);width:46px;height:46px;border-radius:999px;font-size:1.4rem;cursor:pointer}
+
+/* ===== Botons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 26px;border-radius:999px;border:2px solid var(--blau);font:inherit;font-weight:800;font-size:.95rem;text-decoration:none;cursor:pointer;white-space:nowrap;transition:transform .16s var(--ease-out),background-color .2s ease,box-shadow .25s ease}
+.btn-primary{background:var(--blau);color:var(--blanc);box-shadow:0 10px 24px -12px rgba(12,77,162,.8)}
+.btn-ghost{background:var(--blanc);color:var(--blau)}
+.btn:active{transform:scale(.97)}
+.btn i{transition:transform .25s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .btn-primary:hover{box-shadow:0 16px 32px -12px rgba(12,77,162,.9)}
+  .btn-ghost:hover{background:var(--blau-clar)}
+  .btn:hover i{transform:translateX(4px)}
+}
+.btn-sm{padding:10px 18px;font-size:.85rem}
+.btn:disabled{opacity:.75;cursor:progress}
+.btn:disabled .ph-circle-notch{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== INICI ===== */
+.hero{position:relative;isolation:isolate;min-height:calc(100dvh - var(--nav-h));display:flex;align-items:center;padding:56px 0 96px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:40px;align-items:center;width:100%}
+.ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:30%;pointer-events:none;z-index:-1}
+.ridge path{fill:none;stroke:var(--blau);stroke-width:1.2;opacity:.16}
+.ridge path.fill{fill:var(--blau-clar);stroke:none;opacity:1}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blau);background:var(--blau-clar);padding:8px 16px;border-radius:999px;margin-bottom:26px}
+.hero h1{font-size:clamp(2.5rem,4.7vw,4.15rem);font-weight:900;letter-spacing:-0.045em;line-height:1.04}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.08em}
+.hero h1 .w>span{display:inline-block}
+.hero h1 em{font-style:italic;font-weight:800;color:var(--gris)}
+.hero .lead{font-size:clamp(1.05rem,1.4vw,1.2rem);max-width:44ch;margin:26px 0 34px;font-weight:500}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
+
+.vshape{position:relative;aspect-ratio:1/1.05;width:100%;max-width:470px;justify-self:end}
+.vshape .mask{position:absolute;inset:0;clip-path:polygon(0 0,36% 0,50% 52%,64% 0,100% 0,50% 100%);background:var(--blau)}
+.vshape .mask img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+.vshape .mask img.on{opacity:1}
+.vshape .mask::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,77,162,0) 40%,rgba(12,77,162,.55))}
+.peak{position:absolute;left:50%;top:-5%;width:24%;transform:translateX(-50%)}
+.peak path{fill:none;stroke:var(--blau);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.badge-float{position:absolute;background:var(--blanc);border-radius:18px;padding:12px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;font-weight:800;color:var(--blau);font-size:.88rem;white-space:nowrap}
+.badge-float i{font-size:1.4rem;background:var(--blau-clar);border-radius:12px;padding:8px}
+.badge-float small{display:block;font-weight:500;color:var(--gris);font-size:.74rem}
+.badge-a{left:-10%;bottom:14%}
+.badge-b{right:-6%;top:42%}
+
+/* ===== Franja de zones i sectors ===== */
+.marquee{background:var(--blau);color:var(--blanc);overflow:hidden;padding:22px 0}
+.marquee-track{display:flex;width:max-content}
+.marquee-group{display:flex;align-items:center;gap:40px;padding-right:40px;font-size:clamp(1.4rem,3vw,2.3rem);font-weight:800;letter-spacing:-0.02em;white-space:nowrap}
+.marquee-group span.o{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.9)}
+.marquee-group svg{width:28px;height:28px;flex:none;color:var(--blanc)}
+
+/* ===== Seccions ===== */
+section{position:relative}
+.sec{padding:120px 0}
+.sec-tint{background:var(--blau-clar)}
+.sec-head{max-width:760px;margin-bottom:52px}
+.sec-head p{margin-top:16px;font-size:1.08rem;max-width:60ch}
+
+/* ===== QUI SOM ===== */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-template-areas:"who who auto mkt" "who who admin admin" "where where mission values";gap:18px}
+.tile{position:relative;border-radius:var(--r-card);overflow:hidden;padding:30px;background:var(--blanc);border:1px solid var(--linia);display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate;min-height:240px}
+.t-who{grid-area:who;justify-content:space-between;background:var(--blau);color:rgba(255,255,255,.92);border:0}
+.t-who h2{color:var(--blanc)}
+.t-who .intro{font-size:1.15rem;font-weight:600;color:var(--blanc);max-width:30ch;margin-top:18px;line-height:1.45}
+.t-who p.more{margin-top:14px;max-width:46ch}
+.t-who .id{display:grid;grid-template-columns:auto 1fr;gap:6px 28px;font-size:.82rem;margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.25)}
+.t-who .id b{color:var(--blanc)}
+.t-who .bigv{position:absolute;right:-10%;top:-12%;width:60%;opacity:.12;z-index:-1;color:var(--blanc)}
+.t-img{color:var(--blanc);border:0}
+.t-auto{grid-area:auto}.t-mkt{grid-area:mkt}.t-admin{grid-area:admin}
+.t-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .7s var(--ease-out)}
+.t-img::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,77,162,0) 20%,rgba(12,77,162,.92));z-index:-1}
+.t-img h3{color:var(--blanc);font-size:1.3rem}
+.t-img p{font-size:.9rem;margin-top:6px;color:rgba(255,255,255,.95)}
+.t-img i.ico{position:absolute;top:20px;left:20px;font-size:1.4rem;background:var(--blau);border-radius:12px;padding:9px;color:var(--blanc)}
+@media (hover:hover) and (pointer:fine){.t-img:hover img{transform:scale(1.05)}}
+.t-where{grid-area:where;justify-content:space-between;gap:20px}
+.t-where address{font-style:normal;font-weight:700;font-size:1.05rem;color:var(--gris);margin-top:6px}
+.t-where .zones{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.ico-big{font-size:2.2rem;color:var(--blau)}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:var(--blau-clar);color:var(--blau);font-weight:700;font-size:.85rem}
+.t-mission{grid-area:mission;justify-content:space-between;gap:16px}
+.t-mission p{font-weight:600;font-size:.98rem}
+.t-values{grid-area:values;background:var(--blau-clar);border:0;justify-content:space-between;gap:16px}
+.t-values ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.t-values li{font-size:clamp(1.25rem,1.7vw,1.55rem);font-weight:900;color:var(--blau);letter-spacing:-0.03em;line-height:1.2}
+.js .t-values li{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out);transition-delay:calc(250ms + var(--i) * 90ms)}
+.js .t-values.in li{opacity:1;transform:none}
+
+/* ===== OFERTES DE FEINA ===== */
+.offers-head{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{border:1.5px solid var(--linia-camp);background:var(--blanc);color:var(--gris);font:inherit;font-weight:700;font-size:.85rem;padding:9px 16px;border-radius:999px;cursor:pointer;transition:background-color .2s ease,color .2s ease,border-color .2s ease,transform .16s var(--ease-out)}
+.filter:active{transform:scale(.97)}
+.filter[aria-pressed="true"]{background:var(--blau);border-color:var(--blau);color:var(--blanc)}
+.stack{display:grid;gap:32px}
+.offer{display:grid;grid-template-columns:.8fr 1.2fr;background:var(--blanc);border-radius:var(--r-card);box-shadow:var(--shadow);border:1px solid var(--linia);overflow:hidden}
+.offer.is-hidden,.oi.is-hidden{display:none}
+.offer-index{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px}
+.oi{display:flex;flex-direction:column;gap:3px;padding:16px 18px;border-radius:16px;background:var(--blanc);border:1px solid var(--linia);text-decoration:none;transition:transform .25s var(--ease-out),border-color .2s ease}
+.oi .r{font-size:.72rem;font-weight:900;letter-spacing:.06em;color:var(--blau)}
+.oi b{color:var(--gris);font-size:1rem;line-height:1.3;font-weight:800}
+.oi .m{font-size:.82rem;line-height:1.4}
+@media (hover:hover) and (pointer:fine){.oi:hover{transform:translateY(-3px);border-color:var(--blau)}}
+/* Bloc "Sobre l'empresa" de les ofertes que en tenen dades */
+.about{padding:18px 20px;border-radius:16px;border:1px solid var(--linia)}
+.about h4{font-size:1rem;font-weight:800;margin-bottom:8px}
+.about p{font-size:.92rem;line-height:1.5}
+.about dl{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin:14px 0 0}
+.about dt{font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blau)}
+.about dd{margin:0;font-size:.9rem;font-weight:600;line-height:1.4}
+.lists li b{font-weight:700}
+.offer-media{position:relative;isolation:isolate;padding:30px;display:flex;flex-direction:column;justify-content:space-between;color:var(--blanc);min-height:420px}
+.offer-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.offer-media::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,77,162,.92) 0%,rgba(12,77,162,.25) 30%,rgba(12,77,162,.25) 55%,rgba(12,77,162,.94) 100%);z-index:-1}
+.offer-brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.offer-brand .logo{color:var(--blanc)}
+.offer-brand .logo small{color:rgba(255,255,255,.9)}
+.ref{font-weight:900;font-size:.8rem;letter-spacing:.06em;background:var(--blanc);color:var(--blau);padding:7px 13px;border-radius:999px;white-space:nowrap}
+.offer-media h3{color:var(--blanc);font-size:clamp(1.7rem,2.5vw,2.3rem);font-weight:900;letter-spacing:-0.03em;line-height:1.05}
+.offer-media .emp{margin-top:10px;font-weight:600;display:flex;align-items:center;gap:8px}
+.salary{margin-top:24px}
+.salary .num{font-size:clamp(2.4rem,4vw,3.3rem);font-weight:900;letter-spacing:-0.04em;line-height:1;font-variant-numeric:tabular-nums}
+.salary small{display:block;font-weight:700;margin-top:4px}
+.offer-body{padding:30px 34px;display:flex;flex-direction:column;gap:24px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fact{background:var(--blau-clar);border-radius:16px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.fact i{font-size:1.35rem;color:var(--blau);margin-top:2px}
+.fact span{display:block;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blau)}
+.fact b{display:block;font-size:.92rem;color:var(--gris);line-height:1.35;font-weight:600}
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.lists h4,.perks-offer h4{font-size:1rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.lists ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lists li{display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:.93rem;line-height:1.45}
+.lists li i{color:var(--blau);font-size:1.05rem;margin-top:2px;flex:none}
+.perks-offer .chips{display:flex;flex-wrap:wrap;gap:8px}
+.apply{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--linia)}
+.apply p{font-size:.86rem;max-width:44ch}
+.apply a.mail{color:var(--blau);font-weight:800;word-break:break-word}
+
+/* ===== Formularis ===== */
+.form-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.side-copy .photo{margin-top:34px;border-radius:var(--r-card);overflow:hidden;aspect-ratio:4/3}
+.side-copy .photo img{width:100%;height:100%;object-fit:cover}
+.steps{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:14px}
+.steps li{display:flex;gap:14px;align-items:center;font-weight:600}
+.steps li i{flex:none;font-size:1.3rem;color:var(--blau);background:var(--blau-clar);border-radius:12px;padding:8px}
+.card-form{background:var(--blanc);border:1px solid var(--linia);border-radius:var(--r-card);padding:36px;box-shadow:var(--shadow);position:relative}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-weight:700;font-size:.88rem;color:var(--gris)}
+.req{color:var(--blau)}
+.field input,.field select,.field textarea{font:inherit;font-size:.95rem;color:var(--gris);background:var(--blanc);border:1.5px solid var(--linia-camp);border-radius:var(--r-field);padding:12px 14px;width:100%;transition:border-color .2s ease,box-shadow .2s ease}
+.field textarea{min-height:110px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:rgba(64,64,64,.72)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blau);box-shadow:0 0 0 4px rgba(12,77,162,.15)}
+.help{font-size:.8rem;color:var(--gris)}
+.err{font-size:.8rem;color:var(--error);font-weight:700}
+.err:empty{display:none}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--error)}
+.cv-note{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:.8rem;line-height:1.45;color:var(--gris)}
+.cv-note i{color:var(--blau);font-size:1rem;margin-top:1px;flex:none}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:.88rem;font-weight:600}
+.check input{width:20px;height:20px;accent-color:var(--blau);margin-top:2px;flex:none}
+.check a{color:var(--blau);font-weight:800}
+.form-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:26px}
+.form-foot small{color:var(--gris)}
+.success{display:none;text-align:center;padding:36px 8px}
+.card-form.done form{display:none}
+.card-form.done .success{display:block;animation:pop .45s var(--ease-out) both}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.tick{width:84px;height:84px;margin:0 auto 20px;border-radius:999px;background:var(--blau-clar);display:grid;place-items:center}
+.tick svg{width:44px;height:44px}
+.tick path{fill:none;stroke:var(--blau);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40}
+.card-form.done .tick path{animation:draw .5s .15s var(--ease-out) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.success h3{font-size:1.6rem}
+.success p{margin:10px auto 8px;max-width:42ch}
+.success .to-open{margin:10px 0 16px}
+.success .mail-alt{font-size:.85rem;margin-bottom:22px}
+.success .mail-alt a{color:var(--blau);font-weight:800}
+
+/* Per a empreses: panell blau */
+.biz{display:grid;grid-template-columns:1fr 1fr;border-radius:calc(var(--r-card) + 6px);overflow:hidden;background:var(--blau);box-shadow:var(--shadow)}
+.biz .card-form{border:0;border-radius:0;box-shadow:none}
+.biz-side{padding:48px 44px;color:rgba(255,255,255,.92);display:flex;flex-direction:column;gap:26px;position:relative;isolation:isolate;overflow:hidden}
+.biz-side h2{color:var(--blanc)}
+.biz-side .lead{font-size:1.08rem}
+.perks{display:grid;gap:18px}
+.perk{display:flex;gap:14px}
+.perk i{font-size:1.4rem;color:var(--blau);background:var(--blanc);border-radius:12px;padding:9px;flex:none;height:max-content}
+.perk b{color:var(--blanc);display:block}
+.perk p{font-size:.92rem}
+.biz-side .photo{margin-top:auto;border-radius:18px;overflow:hidden;aspect-ratio:16/9}
+.biz-side .photo img{width:100%;height:100%;object-fit:cover}
+
+/* ===== CONTACTE ===== */
+.contact{display:grid;grid-template-columns:1.05fr .95fr;gap:20px}
+.c-list{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"mail mail" "tel web" "addr hours";gap:16px}
+.c-item{background:var(--blanc);border-radius:var(--r-card);padding:22px 24px;border:1px solid var(--linia);text-decoration:none;display:flex;gap:16px;align-items:flex-start;transition:transform .25s var(--ease-out),border-color .2s ease;min-width:0}
+.c-item i{font-size:1.5rem;color:var(--blau);background:var(--blau-clar);border-radius:12px;padding:10px;flex:none}
+.c-item span{display:block;font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blau);margin-bottom:4px}
+.c-item b{display:block;color:var(--gris);font-size:.98rem;line-height:1.45;overflow-wrap:anywhere}
+.c-mail{grid-area:mail}.c-tel{grid-area:tel}.c-web{grid-area:web}.c-addr{grid-area:addr}.c-hours{grid-area:hours}
+@media (hover:hover) and (pointer:fine){a.c-item:hover{transform:translateY(-3px);border-color:var(--blau)}}
+.map{border-radius:var(--r-card);overflow:hidden;border:1px solid var(--linia);min-height:380px;background:var(--blau-clar)}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+
+/* ===== PEU DE PÀGINA ===== */
+footer{background:var(--blau);color:rgba(255,255,255,.88);padding:80px 0 36px}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1.2fr .8fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.22)}
+footer .logo{color:var(--blanc)}
+footer .logo small{color:rgba(255,255,255,.85)}
+.foot-slogan{font-size:1.5rem;font-weight:900;color:var(--blanc);letter-spacing:-0.02em;margin-top:22px;line-height:1.2}
+footer h4{color:var(--blanc);margin:0 0 16px;font-size:.95rem;letter-spacing:0}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:.9rem}
+footer a{text-decoration:none}
+footer a:hover,.linkbtn:hover{text-decoration:underline}
+.socials{display:flex;gap:10px;margin-top:24px}
+.socials a{width:46px;height:46px;display:grid;place-items:center;border-radius:999px;background:rgba(255,255,255,.14);font-size:1.25rem;color:var(--blanc);transition:background-color .2s ease,transform .16s var(--ease-out)}
+.socials a:active{transform:scale(.95)}
+@media (hover:hover) and (pointer:fine){.socials a:hover{background:rgba(255,255,255,.26);text-decoration:none}}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}
+.foot-bottom{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-top:28px;font-size:.8rem}
+
+/* ===== Avís legal i privacitat ===== */
+dialog{border:0;border-radius:var(--r-card);padding:0;max-width:640px;width:calc(100% - 32px);color:var(--gris);box-shadow:0 30px 80px -20px rgba(12,77,162,.5)}
+dialog::backdrop{background:rgba(64,64,64,.55);backdrop-filter:blur(4px)}
+dialog[open]{animation:dlg .22s var(--ease-out)}
+@keyframes dlg{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.dlg-in{padding:36px;max-height:80dvh;overflow:auto}
+.dlg-in h3{font-size:1.5rem;margin-bottom:16px;padding-right:40px}
+.dlg-in h4{margin:20px 0 6px;font-size:1rem}
+.dlg-in p{font-size:.92rem;margin-bottom:8px}
+.dlg-close{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:999px;border:0;background:var(--blau-clar);color:var(--blau);font-size:1.2rem;cursor:pointer}
+
+/* ===== Revelació en fer scroll ===== */
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);transition-delay:calc(var(--d,0) * 80ms)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ===== Animacions (només si l'usuari no demana reduir el moviment) ===== */
+@media (prefers-reduced-motion:no-preference){
+  .hero h1 .w>span{animation:rise .9s var(--ease-out) both;animation-delay:calc(120ms + var(--i) * 70ms)}
+  @keyframes rise{from{transform:translateY(110%)}to{transform:none}}
+  .hero .eyebrow,.hero .lead,.hero-ctas{animation:fade-up .8s var(--ease-out) both}
+  .hero .eyebrow{animation-delay:60ms}
+  .hero .lead{animation-delay:480ms}
+  .hero-ctas{animation-delay:580ms}
+  @keyframes fade-up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .vshape .mask{animation:unveil 1.2s .2s var(--ease-in-out) both}
+  @keyframes unveil{from{clip-path:polygon(50% 0,50% 0,50% 52%,50% 0,50% 0,50% 100%)}}
+  .vshape .mask img{transition:opacity 1.2s ease,transform 6s linear;transform:scale(1.08)}
+  .vshape .mask img.on{transform:scale(1)}
+  .peak path{stroke-dasharray:60;stroke-dashoffset:60;animation:draw 1s 1.05s var(--ease-out) forwards}
+  .badge-float{animation:fade-up .8s var(--ease-out) both, bob 6s ease-in-out infinite}
+  .badge-a{animation-delay:1.15s,2s}
+  .badge-b{animation-delay:1.3s,2.8s}
+  @keyframes bob{50%{transform:translateY(-8px)}}
+  .ridge path:not(.fill){stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 2.6s .3s var(--ease-out) forwards}
+  .marquee-track{animation:marq 38s linear infinite}
+  @keyframes marq{to{transform:translateX(-50%)}}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .reveal,.js .t-values li{transform:none;transition:opacity .3s ease}
+  .vshape .mask img{transition:opacity .4s ease}
+}
+
+/* ===== Adaptació a pantalles ===== */
+@media (max-width:1180px){
+  .nav ul{position:fixed;top:var(--nav-h);left:0;right:0;flex-direction:column;background:var(--blanc);padding:12px 16px 20px;border-bottom:1px solid var(--linia);box-shadow:var(--shadow);transform:translateY(-8px);opacity:0;visibility:hidden;transition:opacity .2s var(--ease-out),transform .2s var(--ease-out),visibility .2s}
+  .nav.open ul{opacity:1;transform:none;visibility:visible}
+  .nav ul a{padding:14px 16px;font-size:1rem}
+  .menu-btn{display:grid;place-items:center}
+  .nav .btn-nav{display:none}
+}
+@media (max-width:1023px){
+  .hero .wrap{grid-template-columns:1fr}
+  .vshape{justify-self:center;max-width:400px;margin-top:24px}
+  .badge-a{left:-4%}
+  .badge-b{right:-4%}
+  .bento{grid-template-columns:1fr 1fr;grid-template-areas:"who who" "auto mkt" "admin admin" "where where" "mission values"}
+  .offer{grid-template-columns:1fr}
+  .offer-index{grid-template-columns:1fr 1fr}
+  .offer-media{min-height:340px}
+  .form-grid,.biz,.contact{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:767px){
+  .wrap{padding:0 16px}
+  .sec{padding:80px 0}
+  .hero{padding:32px 0 64px}
+  .hero h1{font-size:clamp(2.1rem,10vw,2.7rem)}
+  .bento{grid-template-columns:1fr;grid-template-areas:"who" "auto" "mkt" "admin" "where" "mission" "values"}
+  .facts,.fields,.lists,.offer-index,.about dl{grid-template-columns:1fr}
+  .c-list{grid-template-columns:1fr;grid-template-areas:"mail" "tel" "web" "addr" "hours"}
+  .card-form{padding:24px}
+  .offer-body{padding:24px}
+  .offer-media{padding:24px}
+  .biz-side{padding:36px 24px}
+  .foot-top{grid-template-columns:1fr}
+  .vshape{max-width:300px}
+  .badge-float{font-size:.8rem;padding:10px 12px}
+  .badge-a{left:-8%;bottom:10%}
+  .badge-b{right:-8%;top:40%}
+  .form-foot .btn{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<!-- Logo: V en forma de cim -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="v-logo" viewBox="0 0 40 40">
+    <path d="M5 9 20 35 35 9" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M13.5 13 20 3.5 26.5 13" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#inici" class="logo" aria-label="Vèrtex Talent ETT, inici">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg>
+      <span class="logo-txt"><b>VÈRTEX TALENT</b><small>EMPRESA DE TREBALL TEMPORAL</small></span>
+    </a>
+    <nav aria-label="Menú principal">
+      <ul id="menu">
+        <li><a href="#inici">Inici</a></li>
+        <li><a href="#qui-som">Qui som</a></li>
+        <li><a href="#ofertes">Ofertes de feina</a></li>
+        <li><a href="#candidats">Per a candidats</a></li>
+        <li><a href="#empreses">Per a empreses</a></li>
+        <li><a href="#contacte">Contacte</a></li>
+      </ul>
+    </nav>
+    <a href="#ofertes" class="btn btn-primary btn-sm btn-nav">Veure les ofertes</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Obre el menú"><i class="ph ph-list"></i></button>
+  </div>
+</header>
+
+<main>
+<!-- ===== INICI: logo, eslògan i botó per veure les ofertes ===== -->
+<section class="hero" id="inici">
+  <svg class="ridge" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+    <path class="fill" d="M0 400V300l140-90 120 60 170-150 150 120 110-70 190 160 160-130 140 90 120-110 140 120v100Z"/>
+    <path d="M0 300l140-90 120 60 170-150 150 120 110-70 190 160 160-130 140 90 120-110 140 120"/>
+    <path d="M0 250l180-110 140 80 200-170 150 140 130-60 170 130 180-150 150 100 140-90"/>
+  </svg>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow"><i class="ph-bold ph-mountains"></i>Empresa de Treball Temporal</span>
+      <h1 aria-label="Connectem talent amb empreses.">
+        <span class="w"><span style="--i:0">Connectem</span></span>
+        <span class="w"><span style="--i:1">talent</span></span><br>
+        <span class="w"><span style="--i:2">amb</span></span>
+        <span class="w"><span style="--i:3"><em>empreses.</em></span></span>
+      </h1>
+      <p class="lead">Personal temporal per a les empreses i feina a prop de casa a l'Alt Urgell, la Cerdanya i Andorra.</p>
+      <div class="hero-ctas">
+        <a href="#ofertes" class="btn btn-primary">Veure les ofertes <i class="ph-bold ph-arrow-right"></i></a>
+        <a href="#empreses" class="btn btn-ghost">Busco personal</a>
+      </div>
+    </div>
+    <div class="vshape" aria-hidden="true">
+      <svg class="peak" viewBox="0 0 60 30"><path d="M6 26 30 4 54 26"/></svg>
+      <div class="mask">
+        <img src="img/pintura.jpg" alt="" class="on">
+        <img src="img/equip.jpg" alt="">
+        <img src="img/oficina.jpg" alt="">
+        <img src="img/taller.jpg" alt="">
+      </div>
+      <div class="badge-float badge-a"><i class="ph ph-briefcase"></i><div>6 ofertes de feina<small>Alt Urgell i Cerdanya</small></div></div>
+      <div class="badge-float badge-b"><i class="ph ph-handshake"></i><div>Proximitat<small>Feina a prop de casa</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Franja: zones i sectors -->
+<div class="marquee" role="img" aria-label="Zones: Alt Urgell, Cerdanya i Andorra. Sectors: automoció, màrqueting i administració.">
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-group">
+      <span>Alt Urgell</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span class="o">Automoció</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span>Cerdanya</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span class="o">Màrqueting</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span>Andorra</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span class="o">Administració</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+    </div>
+    <div class="marquee-group">
+      <span>Alt Urgell</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span class="o">Automoció</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span>Cerdanya</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span class="o">Màrqueting</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span>Andorra</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+      <span class="o">Administració</span><svg viewBox="0 0 40 40"><use href="#v-logo"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUI SOM: qui som, on som i a quins sectors treballem ===== -->
+<section class="sec" id="qui-som">
+  <div class="wrap">
+    <div class="bento">
+      <article class="tile t-who reveal">
+        <svg class="bigv" viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg>
+        <div>
+          <h2>Qui som</h2>
+          <p class="intro">Posem en contacte empreses que necessiten personal temporal amb persones que busquen feina.</p>
+          <p class="more">Som una empresa de treball temporal de la Seu d'Urgell i treballem a l'Alt Urgell, la Cerdanya i Andorra.</p>
+        </div>
+        <div class="id">
+          <b>Raó social</b><span>Vèrtex Talent Empresa de Treball Temporal, SL</span>
+          <b>NIF</b><span>B-25123456</span>
+          <b>Autorització ETT</b><span>Núm. 25/0001/2026</span>
+        </div>
+      </article>
+
+      <article class="tile t-img t-auto reveal" style="--d:1">
+        <img src="img/taller.jpg" alt="Mecànic revisant un cotxe en un taller" loading="lazy">
+        <i class="ph ph-wrench ico" aria-hidden="true"></i>
+        <h3>Automoció i mecànica</h3>
+      </article>
+
+      <article class="tile t-img t-mkt reveal" style="--d:2">
+        <img src="img/equip.jpg" alt="Equip de màrqueting reunit al voltant d'una taula" loading="lazy">
+        <i class="ph ph-megaphone ico" aria-hidden="true"></i>
+        <h3>Màrqueting i comunicació</h3>
+      </article>
+
+      <article class="tile t-img t-admin reveal" style="--d:1">
+        <img src="img/oficina.jpg" alt="Administrativa treballant a l'ordinador en una oficina" loading="lazy">
+        <i class="ph ph-calculator ico" aria-hidden="true"></i>
+        <h3>Administració i finances</h3>
+        <p>Els tres sectors en què treballem.</p>
+      </article>
+
+      <article class="tile t-where reveal">
+        <i class="ph-fill ph-map-pin ico-big" aria-hidden="true"></i>
+        <div>
+          <h3>On som</h3>
+          <address>Carrer de Sant Ermengol, 12, baixos<br>25700 La Seu d'Urgell (Lleida)</address>
+          <div class="zones">
+            <span class="chip"><i class="ph ph-mountains"></i>Alt Urgell</span>
+            <span class="chip"><i class="ph ph-mountains"></i>Cerdanya</span>
+            <span class="chip"><i class="ph ph-mountains"></i>Andorra</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tile t-mission reveal" style="--d:1">
+        <i class="ph ph-target ico-big" aria-hidden="true"></i>
+        <div>
+          <h3 style="margin-bottom:8px">Missió</h3>
+          <p>Ajudar les empreses a trobar personal de manera ràpida i ajudar la gent a trobar feina a prop de casa.</p>
+        </div>
+      </article>
+
+      <article class="tile t-values reveal" style="--d:2">
+        <i class="ph ph-heart ico-big" aria-hidden="true"></i>
+        <div>
+          <h3 style="margin-bottom:10px">Valors</h3>
+          <ul>
+            <li style="--i:0">Professionalitat</li>
+            <li style="--i:1">Confiança</li>
+            <li style="--i:2">Proximitat</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OFERTES DE FEINA: totes amb el mateix format ===== -->
+<section class="sec sec-tint" id="ofertes">
+  <div class="wrap">
+    <div class="offers-head">
+      <div class="reveal" style="max-width:640px">
+        <h2>Ofertes de feina</h2>
+        <p style="margin-top:16px;font-size:1.08rem">Consulta les condicions de cada oferta i inscriu-t'hi per correu o amb el formulari.</p>
+      </div>
+      <div class="filters reveal" style="--d:1" role="group" aria-label="Filtra les ofertes per sector">
+        <button class="filter" aria-pressed="true" data-f="tots">Totes</button>
+        <button class="filter" aria-pressed="false" data-f="auto">Automoció</button>
+        <button class="filter" aria-pressed="false" data-f="mkt">Màrqueting i comunicació</button>
+        <button class="filter" aria-pressed="false" data-f="admin">Administració</button>
+        <button class="filter" aria-pressed="false" data-f="disseny">Disseny</button>
+      </div>
+    </div>
+
+    <!-- Índex ràpid de totes les ofertes -->
+    <nav class="offer-index" aria-label="Totes les ofertes">
+      <a class="oi reveal" data-s="auto" href="#VT-001"><b>Mecànic/a d'automoció</b><span class="m">Tallers Segre Motor, SL · La Seu d'Urgell</span></a>
+      <a class="oi reveal" style="--d:1" data-s="auto" href="#VT-002"><b>Carrosser/a</b><span class="m">Carrosseries Cerdanya, SL · Puigcerdà</span></a>
+      <a class="oi reveal" style="--d:2" data-s="admin" href="#PF-003"><b>Administratiu/iva (AFI)</b><span class="m">Gestoria · La Seu d'Urgell</span></a>
+      <a class="oi reveal" data-s="admin" href="#VT-004"><b>Auxiliar administratiu/iva</b><span class="m">Distribucions Cadí, SA · Montferrer i Castellbò</span></a>
+      <a class="oi reveal" style="--d:1" data-s="mkt" href="#VT-005"><b>Tècnic/a de comunicació</b><span class="m">Pirineu Hotels Grup, SL · La Seu d'Urgell i Puigcerdà</span></a>
+      <a class="oi reveal" style="--d:2" data-s="disseny" href="#VT-006"><b>Dissenyador/a gràfic/a</b><span class="m">Nòdul Estudi Creatiu, SL · La Seu d'Urgell</span></a>
+    </nav>
+
+    <div class="stack">
+      <!-- VT-001 -->
+      <article class="offer reveal" data-s="auto" id="VT-001" aria-labelledby="t1">
+        <div class="offer-media">
+          <img src="img/vt-001.jpg" alt="" loading="lazy" style="object-position:50% 50%">
+          <div class="offer-brand">
+            <span class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg><span class="logo-txt"><b>VÈRTEX TALENT</b><small>ETT</small></span></span>
+          </div>
+          <div>
+            <h3 id="t1">Mecànic/a d'automoció</h3>
+            <p class="emp"><i class="ph ph-buildings"></i>Tallers Segre Motor, SL</p>
+            <div class="salary"><span class="num" data-count="1750">1.750 €</span><small>bruts/mes</small></div>
+          </div>
+        </div>
+        <div class="offer-body">
+          <div class="facts">
+            <div class="fact"><i class="ph ph-map-pin"></i><div><span>Ubicació</span><b>La Seu d'Urgell (Alt Urgell)</b></div></div>
+            <div class="fact"><i class="ph ph-file-text"></i><div><span>Contracte</span><b>Temporal de 6 mesos, amb possibilitat de continuïtat</b></div></div>
+            <div class="fact"><i class="ph ph-clock"></i><div><span>Jornada</span><b>Completa (40 h/setmana)</b></div></div>
+            <div class="fact"><i class="ph ph-coins"></i><div><span>Sou</span><b>1.750 € bruts/mes</b></div></div>
+            <div class="fact"><i class="ph ph-calendar-blank"></i><div><span>Horari</span><b>De dilluns a divendres, de 8 a 13 h i de 15 a 18 h</b></div></div>
+            <div class="fact"><i class="ph ph-rocket-launch"></i><div><span>Incorporació</span><b>Immediata</b></div></div>
+          </div>
+          <div class="about">
+            <h4>Sobre l'empresa</h4>
+            <p>Taller multimarca amb més de 20 anys d'experiència. Fa revisions, diagnosi i reparacions de turismes i furgonetes per a particulars i empreses de la comarca.</p>
+            <dl>
+              <div><dt>Activitat</dt><dd>Reparació i manteniment de vehicles</dd></div>
+              <div><dt>Sector</dt><dd>Serveis - automoció</dd></div>
+              <div><dt>Mida</dt><dd>Petita empresa (8 treballadors)</dd></div>
+              <div><dt>Departament</dt><dd>Taller mecànic</dd></div>
+            </dl>
+          </div>
+          <div class="lists">
+            <div><h4>Funcions</h4><ul>
+              <li><i class="ph-bold ph-check"></i>Fer revisions i manteniments periòdics</li>
+              <li><i class="ph-bold ph-check"></i>Diagnosticar avaries amb màquina de diagnosi</li>
+              <li><i class="ph-bold ph-check"></i>Reparar motor, frens, embragatge i suspensió</li>
+              <li><i class="ph-bold ph-check"></i>Canviar pneumàtics, olis i filtres</li>
+            </ul></div>
+            <div><h4>Requisits</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Formació:</b> CFGM en Electromecànica de Vehicles Automòbils o similar</span></li>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Experiència:</b> mínim 1 any en un taller mecànic</span></li>
+            </ul></div>
+            <div><h4>Competències tècniques</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Ús d'eines i equips de diagnosi</li>
+              <li><i class="ph-bold ph-check-circle"></i>Coneixements de mecànica i electricitat del vehicle</li>
+              <li><i class="ph-bold ph-check-circle"></i>Carnet de conduir B</li>
+            </ul></div>
+            <div><h4>Competències personals</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Responsabilitat i cura en la feina</li>
+              <li><i class="ph-bold ph-check-circle"></i>Treball en equip</li>
+              <li><i class="ph-bold ph-check-circle"></i>Capacitat per resoldre problemes</li>
+            </ul></div>
+          </div>
+          <div class="apply">
+            <p><b>Inscripció:</b> envia el CV a <a class="mail" data-tpl="oferta" data-ref="VT-001" data-lloc="Mecànic/a d'automoció" href="mailto:info@vertextalent.cat?subject=Candidatura">info@vertextalent.cat</a>, o omple el formulari.</p>
+            <a href="#candidats" class="btn btn-primary btn-sm" data-apply="VT-001">Inscriu-t'hi <i class="ph-bold ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- VT-002 -->
+      <article class="offer reveal" data-s="auto" id="VT-002" aria-labelledby="t2">
+        <div class="offer-media">
+          <img src="img/vt-002.jpg" alt="" loading="lazy" style="object-position:50% 40%">
+          <div class="offer-brand">
+            <span class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg><span class="logo-txt"><b>VÈRTEX TALENT</b><small>ETT</small></span></span>
+          </div>
+          <div>
+            <h3 id="t2">Carrosser/a</h3>
+            <p class="emp"><i class="ph ph-buildings"></i>Carrosseries Cerdanya, SL</p>
+            <div class="salary"><span class="num" data-count="1700">1.700 €</span><small>bruts/mes</small></div>
+          </div>
+        </div>
+        <div class="offer-body">
+          <div class="facts">
+            <div class="fact"><i class="ph ph-map-pin"></i><div><span>Ubicació</span><b>Puigcerdà (Cerdanya)</b></div></div>
+            <div class="fact"><i class="ph ph-file-text"></i><div><span>Contracte</span><b>Temporal de 6 mesos</b></div></div>
+            <div class="fact"><i class="ph ph-clock"></i><div><span>Jornada</span><b>Completa (40 h/setmana)</b></div></div>
+            <div class="fact"><i class="ph ph-coins"></i><div><span>Sou</span><b>1.700 € bruts/mes</b></div></div>
+            <div class="fact"><i class="ph ph-calendar-blank"></i><div><span>Horari</span><b>De dilluns a divendres, de 8 a 13 h i de 15 a 18 h</b></div></div>
+            <div class="fact"><i class="ph ph-rocket-launch"></i><div><span>Incorporació</span><b>1 de novembre de 2026</b></div></div>
+          </div>
+          <div class="about">
+            <h4>Sobre l'empresa</h4>
+            <p>Taller especialitzat en reparació de cops, xapa i pintura. Treballa amb les principals companyies d'assegurances de la zona.</p>
+            <dl>
+              <div><dt>Activitat</dt><dd>Reparació de carrosseria i pintura de vehicles</dd></div>
+              <div><dt>Sector</dt><dd>Serveis - automoció</dd></div>
+              <div><dt>Mida</dt><dd>Petita empresa (12 treballadors)</dd></div>
+              <div><dt>Departament</dt><dd>Carrosseria i pintura</dd></div>
+            </dl>
+          </div>
+          <div class="lists">
+            <div><h4>Funcions</h4><ul>
+              <li><i class="ph-bold ph-check"></i>Reparar i substituir peces de xapa</li>
+              <li><i class="ph-bold ph-check"></i>Preparar superfícies i aplicar pintura</li>
+              <li><i class="ph-bold ph-check"></i>Polir i fer els acabats</li>
+              <li><i class="ph-bold ph-check"></i>Revisar el vehicle abans de lliurar-lo al client</li>
+            </ul></div>
+            <div><h4>Requisits</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Formació:</b> CFGM en Carrosseria</span></li>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Experiència:</b> es valorarà experiència prèvia en taller de carrosseria i pintura</span></li>
+            </ul></div>
+            <div><h4>Competències tècniques</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Ús de cabina de pintura i eines de xapa</li>
+              <li><i class="ph-bold ph-check-circle"></i>Coneixement de materials i pintures</li>
+              <li><i class="ph-bold ph-check-circle"></i>Carnet de conduir B</li>
+            </ul></div>
+            <div><h4>Competències personals</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Atenció al detall</li>
+              <li><i class="ph-bold ph-check-circle"></i>Organització i ordre</li>
+              <li><i class="ph-bold ph-check-circle"></i>Paciència i precisió</li>
+            </ul></div>
+          </div>
+          <div class="apply">
+            <p><b>Inscripció:</b> envia el CV a <a class="mail" data-tpl="oferta" data-ref="VT-002" data-lloc="Carrosser/a" href="mailto:info@vertextalent.cat?subject=Candidatura">info@vertextalent.cat</a>, o omple el formulari.</p>
+            <a href="#candidats" class="btn btn-primary btn-sm" data-apply="VT-002">Inscriu-t'hi <i class="ph-bold ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PF-003 -->
+      <article class="offer reveal" data-s="admin" id="PF-003" aria-labelledby="t3">
+        <div class="offer-media">
+          <img src="img/pf-003.jpg" alt="" loading="lazy" style="object-position:72% 50%">
+          <div class="offer-brand">
+            <span class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg><span class="logo-txt"><b>VÈRTEX TALENT</b><small>ETT</small></span></span>
+          </div>
+          <div>
+            <h3 id="t3">Administratiu/iva (AFI)</h3>
+            <p class="emp"><i class="ph ph-buildings"></i>Gestoria</p>
+            <div class="salary"><span class="num" data-count="1600">1.600 €</span><small>bruts/mes</small></div>
+          </div>
+        </div>
+        <div class="offer-body">
+          <div class="facts">
+            <div class="fact"><i class="ph ph-map-pin"></i><div><span>Ubicació</span><b>La Seu d'Urgell</b></div></div>
+            <div class="fact"><i class="ph ph-file-text"></i><div><span>Contracte</span><b>Temporal de 3 mesos (substitució)</b></div></div>
+            <div class="fact"><i class="ph ph-clock"></i><div><span>Jornada</span><b>Completa, de 9 a 14 h i de 16 a 19 h</b></div></div>
+            <div class="fact"><i class="ph ph-coins"></i><div><span>Sou</span><b>1.600 € bruts/mes</b></div></div>
+          </div>
+          <div class="lists">
+            <div><h4>Funcions</h4><ul>
+              <li><i class="ph-bold ph-check"></i>Atenció al client per telèfon i presencial</li>
+              <li><i class="ph-bold ph-check"></i>Factures, cobraments i pagaments</li>
+              <li><i class="ph-bold ph-check"></i>Comptabilitat bàsica</li>
+              <li><i class="ph-bold ph-check"></i>Arxiu i gestió de documents</li>
+            </ul></div>
+            <div><h4>Requisits</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>CFGS en Administració i Finances</li>
+              <li><i class="ph-bold ph-check-circle"></i>Coneixements d'Excel i programes de comptabilitat (Contaplus, A3 o similar)</li>
+              <li><i class="ph-bold ph-check-circle"></i>Persona organitzada i responsable</li>
+            </ul></div>
+          </div>
+          <div class="perks-offer"><h4>S'ofereix</h4><div class="chips">
+            <span class="chip"><i class="ph ph-lightning"></i>Incorporació immediata</span>
+            <span class="chip"><i class="ph ph-smiley"></i>Bon ambient de treball</span>
+          </div></div>
+          <div class="apply">
+            <p><b>Inscripció:</b> envia el CV a <a class="mail" data-tpl="oferta" data-ref="PF-003" data-lloc="Administratiu/iva (AFI)" href="mailto:samantalorena.delgado@laseu.lasalle.cat?subject=Candidatura">samantalorena.delgado@laseu.lasalle.cat</a>, o omple el formulari.</p>
+            <a href="#candidats" class="btn btn-primary btn-sm" data-apply="PF-003">Inscriu-t'hi <i class="ph-bold ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- VT-004 -->
+      <!-- Foto: si poses img/vt-004.jpg es farà servir; si no, es mostra oficina.jpg -->
+      <article class="offer reveal" data-s="admin" id="VT-004" aria-labelledby="t4">
+        <div class="offer-media">
+          <img src="img/vt-004.jpg" alt="" loading="lazy" style="object-position:74% 50%">
+          <div class="offer-brand">
+            <span class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg><span class="logo-txt"><b>VÈRTEX TALENT</b><small>ETT</small></span></span>
+          </div>
+          <div>
+            <h3 id="t4">Auxiliar administratiu/iva</h3>
+            <p class="emp"><i class="ph ph-buildings"></i>Distribucions Cadí, SA</p>
+            <div class="salary"><span class="num" data-count="1150">1.150 €</span><small>bruts/mes</small></div>
+          </div>
+        </div>
+        <div class="offer-body">
+          <div class="facts">
+            <div class="fact"><i class="ph ph-map-pin"></i><div><span>Ubicació</span><b>Montferrer i Castellbò (Alt Urgell)</b></div></div>
+            <div class="fact"><i class="ph ph-file-text"></i><div><span>Contracte</span><b>Temporal de 6 mesos</b></div></div>
+            <div class="fact"><i class="ph ph-clock"></i><div><span>Jornada</span><b>Parcial (30 h/setmana)</b></div></div>
+            <div class="fact"><i class="ph ph-coins"></i><div><span>Sou</span><b>1.150 € bruts/mes</b></div></div>
+            <div class="fact"><i class="ph ph-calendar-blank"></i><div><span>Horari</span><b>De dilluns a divendres, de 8 a 14 h</b></div></div>
+            <div class="fact"><i class="ph ph-rocket-launch"></i><div><span>Incorporació</span><b>Immediata</b></div></div>
+          </div>
+          <div class="about">
+            <h4>Sobre l'empresa</h4>
+            <p>Empresa distribuïdora que reparteix productes a botigues, bars i restaurants de l'Alt Urgell, la Cerdanya i el Pallars.</p>
+            <dl>
+              <div><dt>Activitat</dt><dd>Distribució a l'engròs d'aliments i begudes</dd></div>
+              <div><dt>Sector</dt><dd>Comerç i logística</dd></div>
+              <div><dt>Mida</dt><dd>Mitjana empresa (60 treballadors)</dd></div>
+              <div><dt>Departament</dt><dd>Administració - comandes i facturació</dd></div>
+            </dl>
+          </div>
+          <div class="lists">
+            <div><h4>Funcions</h4><ul>
+              <li><i class="ph-bold ph-check"></i>Introduir comandes al sistema</li>
+              <li><i class="ph-bold ph-check"></i>Fer albarans i factures</li>
+              <li><i class="ph-bold ph-check"></i>Arxivar documents</li>
+              <li><i class="ph-bold ph-check"></i>Atendre trucades i correus de clients i proveïdors</li>
+            </ul></div>
+            <div><h4>Requisits</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Formació:</b> CFGM en Gestió Administrativa</span></li>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Experiència:</b> no cal experiència. Es valorarà haver fet pràctiques en una oficina</span></li>
+            </ul></div>
+            <div><h4>Competències tècniques</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Word i Excel a nivell bàsic</li>
+              <li><i class="ph-bold ph-check-circle"></i>Ús de programes de facturació</li>
+              <li><i class="ph-bold ph-check-circle"></i>Correu electrònic i atenció telefònica</li>
+            </ul></div>
+            <div><h4>Competències personals</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Ganes d'aprendre</li>
+              <li><i class="ph-bold ph-check-circle"></i>Puntualitat i responsabilitat</li>
+              <li><i class="ph-bold ph-check-circle"></i>Amabilitat en el tracte</li>
+            </ul></div>
+          </div>
+          <div class="apply">
+            <p><b>Inscripció:</b> envia el CV a <a class="mail" data-tpl="oferta" data-ref="VT-004" data-lloc="Auxiliar administratiu/iva" href="mailto:info@vertextalent.cat?subject=Candidatura">info@vertextalent.cat</a>, o omple el formulari.</p>
+            <a href="#candidats" class="btn btn-primary btn-sm" data-apply="VT-004">Inscriu-t'hi <i class="ph-bold ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- VT-005 -->
+      <!-- Foto: si poses img/vt-005.jpg es farà servir; si no, es mostra equip.jpg -->
+      <article class="offer reveal" data-s="mkt" id="VT-005" aria-labelledby="t5">
+        <div class="offer-media">
+          <img src="img/vt-005.jpg" alt="" loading="lazy" style="object-position:72% 55%">
+          <div class="offer-brand">
+            <span class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg><span class="logo-txt"><b>VÈRTEX TALENT</b><small>ETT</small></span></span>
+          </div>
+          <div>
+            <h3 id="t5">Tècnic/a de comunicació</h3>
+            <p class="emp"><i class="ph ph-buildings"></i>Pirineu Hotels Grup, SL</p>
+            <div class="salary"><span class="num" data-count="1800">1.800 €</span><small>bruts/mes</small></div>
+          </div>
+        </div>
+        <div class="offer-body">
+          <div class="facts">
+            <div class="fact"><i class="ph ph-map-pin"></i><div><span>Ubicació</span><b>La Seu d'Urgell i Puigcerdà</b></div></div>
+            <div class="fact"><i class="ph ph-file-text"></i><div><span>Contracte</span><b>Temporal de 6 mesos (temporada d'hivern)</b></div></div>
+            <div class="fact"><i class="ph ph-clock"></i><div><span>Jornada</span><b>Completa (40 h/setmana)</b></div></div>
+            <div class="fact"><i class="ph ph-coins"></i><div><span>Sou</span><b>1.800 € bruts/mes</b></div></div>
+            <div class="fact"><i class="ph ph-calendar-blank"></i><div><span>Horari</span><b>De dilluns a divendres, de 9 a 17 h</b></div></div>
+            <div class="fact"><i class="ph ph-rocket-launch"></i><div><span>Incorporació</span><b>15 de novembre de 2026</b></div></div>
+          </div>
+          <div class="about">
+            <h4>Sobre l'empresa</h4>
+            <p>Grup hoteler amb tres hotels al Pirineu. Vol millorar la seva imatge a les xarxes i atreure més clients per a la temporada d'hivern.</p>
+            <dl>
+              <div><dt>Activitat</dt><dd>Gestió d'hotels i allotjaments turístics</dd></div>
+              <div><dt>Sector</dt><dd>Turisme i hostaleria</dd></div>
+              <div><dt>Mida</dt><dd>Mitjana empresa (90 treballadors, 3 hotels)</dd></div>
+              <div><dt>Departament</dt><dd>Màrqueting i comunicació</dd></div>
+            </dl>
+          </div>
+          <div class="lists">
+            <div><h4>Funcions</h4><ul>
+              <li><i class="ph-bold ph-check"></i>Portar les xarxes socials dels hotels</li>
+              <li><i class="ph-bold ph-check"></i>Redactar notícies, newsletters i textos per a la web</li>
+              <li><i class="ph-bold ph-check"></i>Organitzar campanyes de promoció</li>
+              <li><i class="ph-bold ph-check"></i>Fer seguiment dels resultats i fer informes</li>
+            </ul></div>
+            <div><h4>Requisits</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Formació:</b> CFGS en Màrqueting i Publicitat, o grau en Comunicació o Periodisme</span></li>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Experiència:</b> mínim 1 any portant xarxes socials o comunicació d'una empresa</span></li>
+            </ul></div>
+            <div><h4>Competències tècniques</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Gestió de xarxes socials (Instagram, Facebook, TikTok)</li>
+              <li><i class="ph-bold ph-check-circle"></i>Canva o eines de disseny bàsic</li>
+              <li><i class="ph-bold ph-check-circle"></i>Català, castellà i anglès (es valorarà el francès)</li>
+            </ul></div>
+            <div><h4>Competències personals</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Creativitat</li>
+              <li><i class="ph-bold ph-check-circle"></i>Bona comunicació oral i escrita</li>
+              <li><i class="ph-bold ph-check-circle"></i>Iniciativa</li>
+            </ul></div>
+          </div>
+          <div class="apply">
+            <p><b>Inscripció:</b> envia el CV a <a class="mail" data-tpl="oferta" data-ref="VT-005" data-lloc="Tècnic/a de comunicació" href="mailto:info@vertextalent.cat?subject=Candidatura">info@vertextalent.cat</a>, o omple el formulari.</p>
+            <a href="#candidats" class="btn btn-primary btn-sm" data-apply="VT-005">Inscriu-t'hi <i class="ph-bold ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- VT-006 -->
+      <!-- Foto: si poses img/vt-006.jpg es farà servir; si no, es mostra equip.jpg -->
+      <article class="offer reveal" data-s="disseny" id="VT-006" aria-labelledby="t6">
+        <div class="offer-media">
+          <img src="img/vt-006.jpg" alt="" loading="lazy" style="object-position:40% 50%">
+          <div class="offer-brand">
+            <span class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg><span class="logo-txt"><b>VÈRTEX TALENT</b><small>ETT</small></span></span>
+          </div>
+          <div>
+            <h3 id="t6">Dissenyador/a gràfic/a</h3>
+            <p class="emp"><i class="ph ph-buildings"></i>Nòdul Estudi Creatiu, SL</p>
+            <div class="salary"><span class="num" data-count="1700">1.700 €</span><small>bruts/mes</small></div>
+          </div>
+        </div>
+        <div class="offer-body">
+          <div class="facts">
+            <div class="fact"><i class="ph ph-map-pin"></i><div><span>Ubicació</span><b>La Seu d'Urgell (Alt Urgell)</b></div></div>
+            <div class="fact"><i class="ph ph-file-text"></i><div><span>Contracte</span><b>Temporal de 4 mesos (per projecte)</b></div></div>
+            <div class="fact"><i class="ph ph-clock"></i><div><span>Jornada</span><b>Completa (40 h/setmana)</b></div></div>
+            <div class="fact"><i class="ph ph-coins"></i><div><span>Sou</span><b>1.700 € bruts/mes</b></div></div>
+            <div class="fact"><i class="ph ph-calendar-blank"></i><div><span>Horari</span><b>De dilluns a divendres, de 9 a 14 h i de 15 a 18 h</b></div></div>
+            <div class="fact"><i class="ph ph-rocket-launch"></i><div><span>Incorporació</span><b>Immediata</b></div></div>
+          </div>
+          <div class="about">
+            <h4>Sobre l'empresa</h4>
+            <p>Estudi creatiu que fa logos, cartells, catàlegs i pàgines web per a empreses i ajuntaments de la zona.</p>
+            <dl>
+              <div><dt>Activitat</dt><dd>Disseny gràfic, imatge corporativa i publicitat</dd></div>
+              <div><dt>Sector</dt><dd>Serveis - publicitat i disseny</dd></div>
+              <div><dt>Mida</dt><dd>Microempresa (6 treballadors)</dd></div>
+              <div><dt>Departament</dt><dd>Disseny</dd></div>
+            </dl>
+          </div>
+          <div class="lists">
+            <div><h4>Funcions</h4><ul>
+              <li><i class="ph-bold ph-check"></i>Dissenyar logos i imatge corporativa</li>
+              <li><i class="ph-bold ph-check"></i>Fer cartells, fullets i catàlegs</li>
+              <li><i class="ph-bold ph-check"></i>Preparar arxius per a impremta</li>
+              <li><i class="ph-bold ph-check"></i>Crear continguts gràfics per a webs i xarxes</li>
+            </ul></div>
+            <div><h4>Requisits</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Formació:</b> CFGS en Gràfica Publicitària o grau en Disseny</span></li>
+              <li><i class="ph-bold ph-check-circle"></i><span><b>Experiència:</b> es valorarà experiència en un estudi o agència. Cal presentar portafoli</span></li>
+            </ul></div>
+            <div><h4>Competències tècniques</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Adobe Illustrator, Photoshop i InDesign</li>
+              <li><i class="ph-bold ph-check-circle"></i>Coneixements de maquetació i tipografia</li>
+              <li><i class="ph-bold ph-check-circle"></i>Es valorarà saber Figma o WordPress</li>
+            </ul></div>
+            <div><h4>Competències personals</h4><ul>
+              <li><i class="ph-bold ph-check-circle"></i>Creativitat</li>
+              <li><i class="ph-bold ph-check-circle"></i>Capacitat d'escoltar el client</li>
+              <li><i class="ph-bold ph-check-circle"></i>Complir els terminis</li>
+            </ul></div>
+          </div>
+          <div class="apply">
+            <p><b>Inscripció:</b> envia el CV a <a class="mail" data-tpl="oferta" data-ref="VT-006" data-lloc="Dissenyador/a gràfic/a" href="mailto:info@vertextalent.cat?subject=Candidatura">info@vertextalent.cat</a>, o omple el formulari.</p>
+            <a href="#candidats" class="btn btn-primary btn-sm" data-apply="VT-006">Inscriu-t'hi <i class="ph-bold ph-arrow-right"></i></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PER A CANDIDATS: formulari per enviar el CV ===== -->
+<section class="sec" id="candidats">
+  <div class="wrap form-grid">
+    <div class="side-copy reveal">
+      <h2>Per a candidats</h2>
+      <p style="font-size:1.1rem;margin-top:18px">Busques feina a prop de casa? Envia'ns el teu CV.</p>
+      <ol class="steps">
+        <li><i class="ph ph-user"></i><span>Omple les teves dades.</span></li>
+        <li><i class="ph ph-briefcase"></i><span>Tria l'oferta que t'interessa i prem "Envia el CV".</span></li>
+        <li><i class="ph ph-envelope-simple"></i><span>Envia-ho i ens posarem en contacte amb tu.</span></li>
+      </ol>
+      <div class="photo"><img src="img/pintura.jpg" alt="Professionals pintant un cotxe en una cabina de pintura" loading="lazy"></div>
+    </div>
+
+    <div class="card-form reveal" style="--d:1" id="cv-card">
+      <form id="cv-form" novalidate>
+        <h3 style="margin-bottom:24px">Envia el teu CV</h3>
+        <div class="fields">
+          <div class="field full">
+            <label for="c-nom">Nom i cognoms <span class="req">*</span></label>
+            <input id="c-nom" name="Nom" autocomplete="name" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="c-mail">Correu electrònic <span class="req">*</span></label>
+            <input id="c-mail" name="email" type="email" autocomplete="email" placeholder="nom@exemple.cat" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="c-tel">Telèfon <span class="req">*</span></label>
+            <input id="c-tel" name="Telèfon" type="tel" autocomplete="tel" placeholder="600 000 000" pattern="[0-9 +]{9,15}" required>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field full">
+            <label for="c-ref">Oferta que t'interessa <span class="req">*</span></label>
+            <select id="c-ref" required>
+              <option value="">Tria una opció</option>
+              <option value="VT-001">Mecànic/a d'automoció</option>
+              <option value="VT-002">Carrosser/a</option>
+              <option value="PF-003">Administratiu/iva (AFI)</option>
+              <option value="VT-004">Auxiliar administratiu/iva</option>
+              <option value="VT-005">Tècnic/a de comunicació</option>
+              <option value="VT-006">Dissenyador/a gràfic/a</option>
+              <option value="Candidatura espontània">Candidatura espontània</option>
+            </select>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field full">
+            <label for="c-msg">Missatge (opcional)</label>
+            <textarea id="c-msg" name="Missatge" placeholder="Explica'ns breument la teva experiència"></textarea>
+          </div>
+          <div class="field full">
+            <label class="check"><input type="checkbox" name="Accepta la política de privacitat" value="Sí" required><span>He llegit i accepto la <a href="#" data-dialog="dlg-privacitat">política de privacitat</a>. <span class="req">*</span></span></label>
+            <span class="err" aria-live="polite"></span>
+          </div>
+        </div>
+        <div class="form-foot">
+          <small><span class="req">*</span> Camps obligatoris</small>
+          <button class="btn btn-primary" type="submit">Envia el CV <i class="ph-bold ph-paper-plane-tilt"></i></button>
+        </div>
+        <p class="cv-note"><i class="ph ph-paperclip" aria-hidden="true"></i>En prémer el botó s'obrirà el teu correu amb les dades ja escrites. Recorda adjuntar-hi el CV (PDF o Word) abans d'enviar-lo.</p>
+      </form>
+      <div class="success" role="status" tabindex="-1">
+        <div class="tick"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M11 23l8 8 15-17"/></svg></div>
+        <h3>Gairebé fet!</h3>
+        <p>Hem preparat un correu amb les dades de la teva candidatura. Si no s'ha obert sol, prem el botó. Després <b>adjunta-hi el teu CV</b> i envia'l.</p>
+        <a class="btn btn-primary to-open" href="#">Obrir el correu <i class="ph-bold ph-envelope-simple"></i></a>
+        <p class="mail-alt">Si no s'obre cap programa de correu, escriu a <a class="to-link" href="#"></a>.</p>
+        <button class="btn btn-ghost btn-sm" data-reset>Tornar al formulari</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PER A EMPRESES: formulari per a les empreses que busquen personal ===== -->
+<section class="sec sec-tint" id="empreses">
+  <div class="wrap">
+    <div class="biz reveal">
+      <div class="biz-side">
+        <h2>Per a empreses</h2>
+        <p class="lead">Necessiteu personal temporal? Expliqueu-nos quin perfil busqueu.</p>
+        <div class="perks">
+          <div class="perk"><i class="ph ph-lightning"></i><div><b>Rapidesa</b><p>Us ajudem a trobar personal de manera ràpida.</p></div></div>
+          <div class="perk"><i class="ph ph-map-trifold"></i><div><b>Proximitat</b><p>Treballem a l'Alt Urgell, la Cerdanya i Andorra.</p></div></div>
+          <div class="perk"><i class="ph ph-squares-four"></i><div><b>Tres sectors</b><p>Automoció i mecànica, màrqueting i comunicació, administració i finances.</p></div></div>
+        </div>
+        <div class="photo"><img src="img/equip.jpg" alt="Equip de treball reunit en una oficina" loading="lazy"></div>
+      </div>
+
+      <div class="card-form" id="biz-card">
+        <form id="biz-form" novalidate>
+          <h3 style="margin-bottom:24px">Sol·licita personal</h3>
+          <div class="fields">
+            <div class="field">
+              <label for="e-emp">Nom de l'empresa <span class="req">*</span></label>
+              <input id="e-emp" name="Empresa" autocomplete="organization" required>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="e-cont">Persona de contacte <span class="req">*</span></label>
+              <input id="e-cont" name="Persona de contacte" autocomplete="name" required>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="e-mail">Correu electrònic <span class="req">*</span></label>
+              <input id="e-mail" name="email" type="email" autocomplete="email" placeholder="empresa@exemple.cat" required>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="e-tel">Telèfon <span class="req">*</span></label>
+              <input id="e-tel" name="Telèfon" type="tel" autocomplete="tel" placeholder="973 000 000" pattern="[0-9 +]{9,15}" required>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="e-sec">Sector <span class="req">*</span></label>
+              <select id="e-sec" name="Sector" required>
+                <option value="">Tria un sector</option>
+                <option>Automoció i mecànica</option>
+                <option>Màrqueting i comunicació</option>
+                <option>Administració i finances</option>
+                <option>Un altre sector</option>
+              </select>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="e-num">Nombre de persones</label>
+              <input id="e-num" name="Nombre de persones" type="number" min="1" value="1">
+            </div>
+            <div class="field full">
+              <label for="e-desc">Lloc de treball i requisits <span class="req">*</span></label>
+              <textarea id="e-desc" name="Lloc de treball i requisits" placeholder="Per exemple: mecànic/a amb experiència, contracte de 6 mesos" required></textarea>
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field full">
+              <label class="check"><input type="checkbox" name="Accepta la política de privacitat" value="Sí" required><span>He llegit i accepto la <a href="#" data-dialog="dlg-privacitat">política de privacitat</a>. <span class="req">*</span></span></label>
+              <span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="form-foot">
+            <small><span class="req">*</span> Camps obligatoris</small>
+            <button class="btn btn-primary" type="submit">Envia la sol·licitud <i class="ph-bold ph-paper-plane-tilt"></i></button>
+          </div>
+        </form>
+        <div class="success" role="status" tabindex="-1">
+          <div class="tick"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M11 23l8 8 15-17"/></svg></div>
+          <h3>Gairebé fet!</h3>
+          <p>Hem preparat un correu amb la vostra sol·licitud. Si no s'ha obert sol, premeu el botó i envieu-lo.</p>
+          <a class="btn btn-primary to-open" href="#">Obrir el correu <i class="ph-bold ph-envelope-simple"></i></a>
+          <p class="mail-alt">Si no s'obre cap programa de correu, escriviu a <a class="to-link" href="#"></a>.</p>
+          <button class="btn btn-ghost btn-sm" data-reset>Tornar al formulari</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACTE: correu, telèfon, adreça i horari ===== -->
+<section class="sec" id="contacte">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Contacte</h2>
+      <p>Vine a veure'ns o <span class="nowrap">escriu-nos</span>. T'atendrem amb molt de gust.</p>
+    </div>
+    <div class="contact">
+      <div class="c-list">
+        <a class="c-item c-mail reveal" data-tpl="contacte" href="mailto:samantalorena.delgado@laseu.lasalle.cat">
+          <i class="ph ph-envelope-simple"></i><div><span>Correu</span><b>samantalorena.delgado@laseu.lasalle.cat</b></div>
+        </a>
+        <a class="c-item c-tel reveal" style="--d:1" href="tel:+34973351234">
+          <i class="ph ph-phone"></i><div><span>Telèfon</span><b>973 35 12 34</b></div>
+        </a>
+        <div class="c-item c-web reveal" style="--d:2">
+          <i class="ph ph-globe"></i><div><span>Web</span><b>www.vertextalent.cat</b></div>
+        </div>
+        <a class="c-item c-addr reveal" style="--d:1" href="https://www.openstreetmap.org/search?query=Carrer%20de%20Sant%20Ermengol%2012%2C%20La%20Seu%20d%27Urgell" target="_blank" rel="noopener">
+          <i class="ph ph-map-pin"></i><div><span>Adreça</span><b>Carrer de Sant Ermengol, 12, baixos<br>25700 La Seu d'Urgell (Lleida)</b></div>
+        </a>
+        <div class="c-item c-hours reveal" style="--d:2">
+          <i class="ph ph-clock"></i><div><span>Horari</span><b>De dilluns a divendres, de 9 a 14 h i de 16 a 19 h</b></div>
+        </div>
+      </div>
+      <div class="map reveal" style="--d:2">
+        <iframe title="Mapa de l'oficina de Vèrtex Talent a la Seu d'Urgell" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=1.4520%2C42.3530%2C1.4690%2C42.3625&amp;layer=mapnik&amp;marker=42.3580%2C1.4602"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== PEU DE PÀGINA: xarxes socials, avís legal i política de privacitat ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a href="#inici" class="logo"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#v-logo"/></svg><span class="logo-txt"><b>VÈRTEX TALENT</b><small>EMPRESA DE TREBALL TEMPORAL</small></span></a>
+        <p class="foot-slogan">Connectem talent amb empreses.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+          <a href="https://x.com/" target="_blank" rel="noopener" aria-label="X"><i class="ph ph-x-logo"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Seccions</h4>
+        <ul>
+          <li><a href="#qui-som">Qui som</a></li>
+          <li><a href="#ofertes">Ofertes de feina</a></li>
+          <li><a href="#candidats">Per a candidats</a></li>
+          <li><a href="#empreses">Per a empreses</a></li>
+          <li><a href="#contacte">Contacte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacte</h4>
+        <ul>
+          <li><a href="tel:+34973351234">973 35 12 34</a></li>
+          <li><a data-tpl="contacte" href="mailto:samantalorena.delgado@laseu.lasalle.cat" style="overflow-wrap:anywhere">samantalorena.delgado@laseu.lasalle.cat</a></li>
+          <li>www.vertextalent.cat</li>
+          <li>Carrer de Sant Ermengol, 12, baixos<br>25700 La Seu d'Urgell (Lleida)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><button class="linkbtn" data-dialog="dlg-avis">Avís legal</button></li>
+          <li><button class="linkbtn" data-dialog="dlg-privacitat">Política de privacitat</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Vèrtex Talent Empresa de Treball Temporal, SL</span>
+      <span>NIF B-25123456</span>
+      <span>Autorització com a ETT núm. 25/0001/2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Avís legal ===== -->
+<dialog id="dlg-avis" aria-labelledby="h-avis">
+  <button class="dlg-close" data-close aria-label="Tanca"><i class="ph ph-x"></i></button>
+  <div class="dlg-in">
+    <h3 id="h-avis">Avís legal</h3>
+    <h4>Dades identificatives</h4>
+    <p>Titular: Vèrtex Talent Empresa de Treball Temporal, SL<br>Nom comercial: Vèrtex Talent ETT<br>NIF: B-25123456<br>Autorització com a ETT: núm. 25/0001/2026<br>Adreça: Carrer de Sant Ermengol, 12, baixos, 25700 La Seu d'Urgell (Lleida)<br>Telèfon: 973 35 12 34<br>Correu: samantalorena.delgado@laseu.lasalle.cat<br>Web: www.vertextalent.cat</p>
+    <h4>Ús del web</h4>
+    <p>L'accés a aquest web és gratuït. La persona usuària es compromet a fer-ne un ús correcte i d'acord amb la llei.</p>
+    <h4>Propietat intel·lectual</h4>
+    <p>Els textos, el logotip i el disseny d'aquest web són propietat de Vèrtex Talent ETT. No es poden copiar sense autorització.</p>
+    <h4>Fotografies</h4>
+    <p>Les fotografies de les ofertes de feina provenen d'Unsplash (unsplash.com) i s'utilitzen d'acord amb la llicència d'Unsplash.</p>
+  </div>
+</dialog>
+
+<!-- ===== Política de privacitat ===== -->
+<dialog id="dlg-privacitat" aria-labelledby="h-priv">
+  <button class="dlg-close" data-close aria-label="Tanca"><i class="ph ph-x"></i></button>
+  <div class="dlg-in">
+    <h3 id="h-priv">Política de privacitat</h3>
+    <h4>Responsable del tractament</h4>
+    <p>Vèrtex Talent Empresa de Treball Temporal, SL (NIF B-25123456).</p>
+    <h4>Finalitat</h4>
+    <p>Gestionar les candidatures i les sol·licituds de personal que rebem a través dels formularis i posar-nos en contacte amb tu.</p>
+    <h4>Conservació</h4>
+    <p>Guardarem les dades mentre siguin necessàries per al procés de selecció.</p>
+    <h4>Drets</h4>
+    <p>Pots exercir els drets d'accés, rectificació, supressió i oposició escrivint a samantalorena.delgado@laseu.lasalle.cat, d'acord amb el Reglament (UE) 2016/679 (RGPD).</p>
+  </div>
+</dialog>
+
+<script>
+document.documentElement.classList.add('js');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MAIL_INFO = 'info@vertextalent.cat';
+const MAIL_GERENT = 'samantalorena.delgado@laseu.lasalle.cat';
+
+/* Menú mòbil */
+const nav = document.getElementById('nav');
+const menuBtn = nav.querySelector('.menu-btn');
+const setMenu = open => {
+  nav.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.setAttribute('aria-label', open ? 'Tanca el menú' : 'Obre el menú');
+  menuBtn.innerHTML = open ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+};
+menuBtn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+nav.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+/* Enllaç actiu del menú segons la secció visible */
+const links = [...nav.querySelectorAll('#menu a')];
+const spy = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    links.forEach(l => l.getAttribute('href') === '#' + e.target.id ? l.setAttribute('aria-current', 'true') : l.removeAttribute('aria-current'));
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
+
+/* Revelació en fer scroll */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* Fotos dins la V de l'inici */
+const heroImgs = document.querySelectorAll('.vshape .mask img');
+let hi = 0;
+setInterval(() => {
+  if (document.hidden) return;
+  heroImgs[hi].classList.remove('on');
+  hi = (hi + 1) % heroImgs.length;
+  heroImgs[hi].classList.add('on');
+}, 4200);
+
+/* Sou: el número puja quan apareix l'oferta */
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €';
+const countIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    countIO.unobserve(e.target);
+    const el = e.target, target = +el.dataset.count;
+    if (reduce) { el.textContent = fmt(target); return; }
+    const t0 = performance.now(), dur = 1100, from = Math.round(target * 0.6);
+    const step = t => {
+      const p = Math.min((t - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 4);
+      el.textContent = fmt(Math.round((from + (target - from) * eased) / 10) * 10);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
+
+/* Filtre d'ofertes per sector */
+const filters = document.querySelectorAll('.filter');
+filters.forEach(f => f.addEventListener('click', () => {
+  filters.forEach(b => b.setAttribute('aria-pressed', b === f));
+  document.querySelectorAll('.offer, .oi').forEach(o => {
+    o.classList.toggle('is-hidden', f.dataset.f !== 'tots' && o.dataset.s !== f.dataset.f);
+  });
+}));
+
+/* "Inscriu-t'hi" deixa triada la referència al formulari */
+document.querySelectorAll('[data-apply]').forEach(b => b.addEventListener('click', () => {
+  document.getElementById('c-ref').value = b.dataset.apply;
+  setTimeout(() => document.getElementById('c-nom').focus({ preventScroll: true }), 700);
+}));
+
+/* Zona per arrossegar el CV */
+
+
+/* Validació dels formularis */
+const msg = el => {
+  if (el.validity.valueMissing) return el.type === 'checkbox' ? "Has d'acceptar la política de privacitat." : el.type === 'file' ? 'Adjunta el teu CV.' : 'Aquest camp és obligatori.';
+  if (el.validity.typeMismatch) return 'Escriu un correu vàlid, per exemple nom@exemple.cat.';
+  if (el.validity.patternMismatch) return 'Escriu un telèfon vàlid (mínim 9 xifres).';
+  if (el.validity.rangeUnderflow) return 'Ha de ser 1 o més.';
+  if (el.type === 'file' && el.files[0] && el.files[0].size > 5 * 1024 * 1024) return 'El fitxer supera els 5 MB.';
+  return '';
+};
+const check = el => {
+  const field = el.closest('.field'); if (!field) return true;
+  const m = msg(el);
+  field.classList.toggle('invalid', !!m);
+  el.setAttribute('aria-invalid', !!m);
+  const err = field.querySelector('.err'); if (err) err.textContent = m;
+  return !m;
+};
+
+/* ===== Correus amb plantilla =====
+   Tots els enllaços de correu i els formularis obren el programa de correu
+   amb l'assumpte i el text ja preparats. */
+const mailto = (to, subject, lines) =>
+  'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\r\n'));
+
+const plantilles = {
+  /* Correu general (Contacte i peu de pàgina) */
+  contacte: () => mailto(MAIL_GERENT, 'Consulta a Vèrtex Talent ETT', [
+    'Hola,',
+    '',
+    'Em poso en contacte amb Vèrtex Talent ETT per fer la consulta següent:',
+    '',
+    '[Escriu aquí la teva consulta]',
+    '',
+    'Les meves dades:',
+    '- Nom i cognoms: ',
+    '- Telèfon: ',
+    '',
+    'Moltes gràcies.',
+    'Salutacions,'
+  ]),
+  /* Correu d'inscripció a una oferta */
+  oferta: (to, ref, lloc) => mailto(to, 'Candidatura: ' + lloc, [
+    'Hola,',
+    '',
+    "M'agradaria presentar la meva candidatura per a l'oferta de " + lloc + ' publicada a www.vertextalent.cat.',
+    '',
+    'Us adjunto el meu currículum.',
+    '',
+    'Les meves dades:',
+    '- Nom i cognoms: ',
+    '- Telèfon: ',
+    '- Correu electrònic: ',
+    '',
+    'Quedo a la vostra disposició per fer una entrevista.',
+    '',
+    'Moltes gràcies.',
+    'Salutacions,'
+  ])
+};
+
+document.querySelectorAll('a[data-tpl]').forEach(a => {
+  const to = a.getAttribute('href').replace('mailto:', '').split('?')[0];
+  a.href = a.dataset.tpl === 'oferta'
+    ? plantilles.oferta(to, a.dataset.ref, a.dataset.lloc)
+    : plantilles.contacte();
+});
+
+/* Correu que es genera en enviar un formulari, amb les dades que s'han escrit */
+const val = (form, sel) => form.querySelector(sel).value.trim();
+const buildMail = {
+  'cv-form': form => {
+    const ref = val(form, '#c-ref');
+    /* PF-003 i les candidatures espontànies van a la gerent; la resta d'ofertes, a info@ */
+    const to = (ref === 'PF-003' || ref === 'Candidatura espontània') ? MAIL_GERENT : MAIL_INFO;
+    const oferta = form.querySelector('#c-ref').selectedOptions[0].textContent;
+    const missatge = val(form, '#c-msg');
+    return { to, href: mailto(to, (ref === 'Candidatura espontània' ? 'Candidatura espontània' : 'Candidatura: ' + oferta) + ' - ' + val(form, '#c-nom'), [
+      'Hola,',
+      '',
+      ref === 'Candidatura espontània'
+        ? 'Us envio la meva candidatura espontània per si hi ha alguna oferta que encaixi amb el meu perfil.'
+        : "M'agradaria presentar la meva candidatura per a l'oferta de " + oferta + '.',
+      '',
+      'Les meves dades:',
+      '- Nom i cognoms: ' + val(form, '#c-nom'),
+      '- Correu electrònic: ' + val(form, '#c-mail'),
+      '- Telèfon: ' + val(form, '#c-tel'),
+      '',
+      ...(missatge ? ['Missatge:', missatge, ''] : []),
+      'Us adjunto el meu currículum.',
+      '',
+      'He llegit i accepto la política de privacitat de Vèrtex Talent ETT.',
+      '',
+      'Moltes gràcies.',
+      'Salutacions,'
+    ]) };
+  },
+  'biz-form': form => ({ to: MAIL_GERENT, href: mailto(MAIL_GERENT, 'Sol·licitud de personal - ' + val(form, '#e-emp'), [
+    'Hola,',
+    '',
+    'Som una empresa que necessita personal temporal i us enviem la nostra sol·licitud.',
+    '',
+    'Dades de l\'empresa:',
+    '- Empresa: ' + val(form, '#e-emp'),
+    '- Persona de contacte: ' + val(form, '#e-cont'),
+    '- Correu electrònic: ' + val(form, '#e-mail'),
+    '- Telèfon: ' + val(form, '#e-tel'),
+    '- Sector: ' + val(form, '#e-sec'),
+    '- Nombre de persones: ' + (val(form, '#e-num') || '1'),
+    '',
+    'Lloc de treball i requisits:',
+    val(form, '#e-desc'),
+    '',
+    'Hem llegit i acceptem la política de privacitat de Vèrtex Talent ETT.',
+    '',
+    'Moltes gràcies.',
+    'Salutacions,'
+  ]) })
+};
+
+/* Obre el correu com si es fes clic a un enllaç (més fiable que canviar la URL) */
+const openMail = href => {
+  const a = document.createElement('a');
+  a.href = href;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+};
+document.querySelectorAll('#cv-form, #biz-form').forEach(form => {
+  const card = form.closest('.card-form');
+  form.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('blur', () => el.closest('.field.invalid') && check(el));
+    el.addEventListener('change', () => el.closest('.field.invalid') && check(el));
+  });
+  form.addEventListener('submit', e => {
+    /* S'obre el correu amb totes les dades escrites; el CV l'adjunta la persona al correu */
+    e.preventDefault();
+    const bad = [...form.querySelectorAll('input, select, textarea')].filter(el => !check(el));
+    if (bad.length) { bad[0].focus(); return; }
+    const { to, href } = buildMail[form.id](form);
+    const link = card.querySelector('.to-link');
+    link.textContent = to; link.href = href;
+    card.querySelector('.to-open').href = href;
+    openMail(href);
+    card.classList.add('done');
+    card.querySelector('.success').focus({ preventScroll: true });
+  });
+  card.querySelector('[data-reset]').addEventListener('click', () => {
+    card.classList.remove('done');
+    form.querySelector('input').focus();
+  });
+});
+
+/* Avís legal i política de privacitat */
+document.querySelectorAll('[data-dialog]').forEach(b => b.addEventListener('click', e => {
+  e.preventDefault(); document.getElementById(b.dataset.dialog).showModal();
+}));
+document.querySelectorAll('dialog').forEach(d => {
+  d.querySelector('[data-close]').addEventListener('click', () => d.close());
+  d.addEventListener('click', e => { if (e.target === d) d.close(); });
+});
+</script>
+</body>
+</html>
