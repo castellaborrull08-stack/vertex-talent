@@ -8,7 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<!-- Icones Phosphor: només els 3 estils que es fan servir (normal, negreta i ple) -->
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M5 9 20 35 35 9' fill='none' stroke='%230C4DA2' stroke-width='5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M14 13 20 4 26 13' fill='none' stroke='%230C4DA2' stroke-width='4' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
 /* =====================================================================
@@ -241,6 +244,10 @@ section{position:relative}
 .field.invalid .drop{border-color:var(--error)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .send-err{margin:14px 0 0;font-size:.85rem;font-weight:700;color:var(--error)}
+.send-wait{display:none;align-items:center;gap:8px;margin:14px 0 0;font-size:.85rem;font-weight:600;color:var(--blau)}
+.sending .send-wait{display:flex}
+.send-wait i{animation:spin .8s linear infinite}
+@media (prefers-reduced-motion:reduce){.send-wait i{animation:none}}
 .send-err:empty{display:none}
 .send-err a{color:var(--error)}
 .cv-note{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:.8rem;line-height:1.45;color:var(--gris)}
@@ -1011,6 +1018,7 @@ dialog[open]{animation:dlg .22s var(--ease-out)}
           <button class="btn btn-primary" type="submit">Envia el CV <i class="ph-bold ph-paper-plane-tilt"></i></button>
         </div>
         <p class="send-err" role="alert"></p>
+        <p class="send-wait" aria-live="polite"><i class="ph-bold ph-circle-notch" aria-hidden="true"></i>Enviant les dades. Pot trigar uns segons, no tanquis la pàgina.</p>
         <p class="cv-note"><i class="ph ph-lock-simple" aria-hidden="true"></i>En prémer el botó, les teves dades i el CV s'envien directament a Vèrtex Talent.</p>
         <input type="text" name="_web" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       </form>
@@ -1095,6 +1103,7 @@ dialog[open]{animation:dlg .22s var(--ease-out)}
             <button class="btn btn-primary" type="submit">Envia la sol·licitud <i class="ph-bold ph-paper-plane-tilt"></i></button>
           </div>
           <p class="send-err" role="alert"></p>
+        <p class="send-wait" aria-live="polite"><i class="ph-bold ph-circle-notch" aria-hidden="true"></i>Enviant les dades. Pot trigar uns segons, no tanquis la pàgina.</p>
           <input type="text" name="_web" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         </form>
         <div class="success" role="status" tabindex="-1">
@@ -1529,6 +1538,8 @@ document.querySelectorAll('#cv-form, #biz-form').forEach(form => {
     /* Envia les dades (i el CV) al full de Google */
     btn.disabled = true;
     btn.innerHTML = 'Enviant... <i class="ph-bold ph-circle-notch"></i>';
+    form.classList.add('sending');
+    form.classList.add('sending');
     try {
       const resp = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(await dadesFull[form.id](form)) });
       const res = await resp.json();
@@ -1538,6 +1549,7 @@ document.querySelectorAll('#cv-form, #biz-form').forEach(form => {
       const { href } = buildMail[form.id](form);
       errEnviament.innerHTML = "No s'ha pogut enviar. Torna-ho a provar o <a href=\"" + href + '">envia-ho per correu</a>.';
     } finally {
+      form.classList.remove('sending');
       btn.disabled = false;
       btn.innerHTML = textBtn;
     }
