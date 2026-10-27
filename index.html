@@ -233,6 +233,16 @@ section{position:relative}
 .err{font-size:.8rem;color:var(--error);font-weight:700}
 .err:empty{display:none}
 .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--error)}
+.drop{position:relative;border:2px dashed var(--linia-camp);border-radius:var(--r-field);padding:22px;text-align:center;background:var(--blau-clar);transition:border-color .2s ease;cursor:pointer}
+.drop.over{border-color:var(--blau)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.drop i{font-size:1.8rem;color:var(--blau)}
+.drop .fname{display:block;font-weight:800;color:var(--blau);margin-top:4px;word-break:break-word}
+.field.invalid .drop{border-color:var(--error)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.send-err{margin:14px 0 0;font-size:.85rem;font-weight:700;color:var(--error)}
+.send-err:empty{display:none}
+.send-err a{color:var(--error)}
 .cv-note{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:.8rem;line-height:1.45;color:var(--gris)}
 .cv-note i{color:var(--blau);font-size:1rem;margin-top:1px;flex:none}
 .check{display:flex;gap:12px;align-items:flex-start;font-size:.88rem;font-weight:600}
@@ -937,7 +947,7 @@ dialog[open]{animation:dlg .22s var(--ease-out)}
       <p style="font-size:1.1rem;margin-top:18px">Busques feina a prop de casa? Envia'ns el teu CV.</p>
       <ol class="steps">
         <li><i class="ph ph-user"></i><span>Omple les teves dades.</span></li>
-        <li><i class="ph ph-briefcase"></i><span>Tria l'oferta que t'interessa i prem "Envia el CV".</span></li>
+        <li><i class="ph ph-briefcase"></i><span>Tria l'oferta que t'interessa i adjunta el CV.</span></li>
         <li><i class="ph ph-envelope-simple"></i><span>Envia-ho i ens posarem en contacte amb tu.</span></li>
       </ol>
       <div class="photo"><img src="img/pintura.jpg" alt="Professionals pintant un cotxe en una cabina de pintura" loading="lazy"></div>
@@ -977,6 +987,17 @@ dialog[open]{animation:dlg .22s var(--ease-out)}
             <span class="err" aria-live="polite"></span>
           </div>
           <div class="field full">
+            <label for="c-cv">Currículum <span class="req">*</span></label>
+            <div class="drop" id="drop">
+              <input id="c-cv" type="file" accept=".pdf,.doc,.docx" required aria-describedby="cv-help">
+              <i class="ph ph-file-arrow-up" aria-hidden="true"></i>
+              <span>Arrossega el teu CV aquí o fes clic per triar-lo</span>
+              <span class="fname" id="fname"></span>
+            </div>
+            <span class="help" id="cv-help">PDF o Word, màxim 5 MB.</span>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field full">
             <label for="c-msg">Missatge (opcional)</label>
             <textarea id="c-msg" name="Missatge" placeholder="Explica'ns breument la teva experiència"></textarea>
           </div>
@@ -989,7 +1010,9 @@ dialog[open]{animation:dlg .22s var(--ease-out)}
           <small><span class="req">*</span> Camps obligatoris</small>
           <button class="btn btn-primary" type="submit">Envia el CV <i class="ph-bold ph-paper-plane-tilt"></i></button>
         </div>
-        <p class="cv-note"><i class="ph ph-paperclip" aria-hidden="true"></i>En prémer el botó s'obrirà el teu correu amb les dades ja escrites. Recorda adjuntar-hi el CV (PDF o Word) abans d'enviar-lo.</p>
+        <p class="send-err" role="alert"></p>
+        <p class="cv-note"><i class="ph ph-lock-simple" aria-hidden="true"></i>En prémer el botó, les teves dades i el CV s'envien directament a Vèrtex Talent.</p>
+        <input type="text" name="_web" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       </form>
       <div class="success" role="status" tabindex="-1">
         <div class="tick"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M11 23l8 8 15-17"/></svg></div>
@@ -1071,6 +1094,8 @@ dialog[open]{animation:dlg .22s var(--ease-out)}
             <small><span class="req">*</span> Camps obligatoris</small>
             <button class="btn btn-primary" type="submit">Envia la sol·licitud <i class="ph-bold ph-paper-plane-tilt"></i></button>
           </div>
+          <p class="send-err" role="alert"></p>
+          <input type="text" name="_web" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         </form>
         <div class="success" role="status" tabindex="-1">
           <div class="tick"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M11 23l8 8 15-17"/></svg></div>
@@ -1192,6 +1217,8 @@ dialog[open]{animation:dlg .22s var(--ease-out)}
     <p>Vèrtex Talent Empresa de Treball Temporal, SL (NIF B-25123456).</p>
     <h4>Finalitat</h4>
     <p>Gestionar les candidatures i les sol·licituds de personal que rebem a través dels formularis i posar-nos en contacte amb tu.</p>
+    <h4>On es guarden les dades</h4>
+    <p>Les dades dels formularis i els CV es guarden en un full de càlcul i una carpeta privats de Google Drive de Vèrtex Talent. Només hi té accés el personal de l'empresa.</p>
     <h4>Conservació</h4>
     <p>Guardarem les dades mentre siguin necessàries per al procés de selecció.</p>
     <h4>Drets</h4>
@@ -1204,6 +1231,11 @@ document.documentElement.classList.add('js');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MAIL_INFO = 'info@vertextalent.cat';
 const MAIL_GERENT = 'samantalorena.delgado@laseu.lasalle.cat';
+
+/* ===== ADREÇA DEL FULL DE GOOGLE (Apps Script) =====
+   Enganxa aquí l'adreça de l'aplicació web (acaba en /exec).
+   Si es deixa buida, els formularis obren el programa de correu com abans. */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4xH1_NRiIGeuo361j9DtsbpBir88zHouG6aLIwkDksHMfxL47so1hjT6tKWJZO0tm/exec';
 
 /* Menú mòbil */
 const nav = document.getElementById('nav');
@@ -1411,26 +1443,111 @@ const openMail = href => {
   a.click();
   a.remove();
 };
+/* Zona per arrossegar el CV */
+const drop = document.getElementById('drop'), cv = document.getElementById('c-cv'), fname = document.getElementById('fname');
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, () => drop.classList.add('over')));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, () => drop.classList.remove('over')));
+cv.addEventListener('change', () => { fname.textContent = cv.files[0] ? cv.files[0].name : ''; });
+
+/* Llegeix el CV com a text base64 per enviar-lo al full de Google */
+const llegirFitxer = file => new Promise((resolve, reject) => {
+  const r = new FileReader();
+  r.onload = () => resolve({ nom: file.name, tipus: file.type, base64: String(r.result).split(',')[1] });
+  r.onerror = () => reject(r.error);
+  r.readAsDataURL(file);
+});
+
+/* Dades que s'envien al full, segons el formulari */
+const dadesFull = {
+  'cv-form': async form => ({
+    tipus: 'candidatura',
+    nom: val(form, '#c-nom'),
+    correu: val(form, '#c-mail'),
+    telefon: val(form, '#c-tel'),
+    oferta: form.querySelector('#c-ref').selectedOptions[0].textContent,
+    missatge: val(form, '#c-msg'),
+    cv: await llegirFitxer(cv.files[0]),
+    _web: form.querySelector('[name=_web]').value
+  }),
+  'biz-form': async form => ({
+    tipus: 'empresa',
+    empresa: val(form, '#e-emp'),
+    contacte: val(form, '#e-cont'),
+    correu: val(form, '#e-mail'),
+    telefon: val(form, '#e-tel'),
+    sector: val(form, '#e-sec'),
+    persones: val(form, '#e-num'),
+    descripcio: val(form, '#e-desc'),
+    _web: form.querySelector('[name=_web]').value
+  })
+};
+
+/* Missatge final: "rebut" (full de Google) o "correu preparat" (sense full) */
+const mostrarExit = (card, mode) => {
+  const s = card.querySelector('.success');
+  const esCv = card.id === 'cv-card';
+  s.querySelector('.to-open').hidden = mode === 'full';
+  s.querySelector('.mail-alt').hidden = mode === 'full';
+  s.querySelector('h3').textContent = mode === 'full' ? 'Rebut. Gràcies!' : 'Gairebé fet!';
+  s.querySelector('p').innerHTML = mode === 'full'
+    ? (esCv ? 'Hem rebut la teva candidatura i el teu CV. Ens posarem en contacte amb tu.'
+            : 'Hem rebut la vostra sol·licitud de personal. Ens posarem en contacte amb vosaltres.')
+    : (esCv ? "Hem preparat un correu amb les dades de la teva candidatura. Si no s'ha obert sol, prem el botó. Després <b>adjunta-hi el teu CV</b> i envia'l."
+            : "Hem preparat un correu amb la vostra sol·licitud. Si no s'ha obert sol, premeu el botó i envieu-lo.");
+  s.querySelector('[data-reset]').innerHTML = mode === 'full' ? (esCv ? "Envia'n un altre" : "Envia'n una altra") : 'Tornar al formulari';
+  card.classList.add('done');
+  s.focus({ preventScroll: true });
+};
+
+/* Sense full de Google: s'obre el correu amb la plantilla */
+const enviarPerCorreu = (form, card) => {
+  const { to, href } = buildMail[form.id](form);
+  const link = card.querySelector('.to-link');
+  link.textContent = to; link.href = href;
+  card.querySelector('.to-open').href = href;
+  openMail(href);
+  mostrarExit(card, 'correu');
+};
+
 document.querySelectorAll('#cv-form, #biz-form').forEach(form => {
   const card = form.closest('.card-form');
+  const btn = form.querySelector('button[type=submit]');
+  const textBtn = btn.innerHTML;
+  const errEnviament = form.querySelector('.send-err');
   form.querySelectorAll('input, select, textarea').forEach(el => {
     el.addEventListener('blur', () => el.closest('.field.invalid') && check(el));
     el.addEventListener('change', () => el.closest('.field.invalid') && check(el));
   });
-  form.addEventListener('submit', e => {
-    /* S'obre el correu amb totes les dades escrites; el CV l'adjunta la persona al correu */
+  form.addEventListener('submit', async e => {
     e.preventDefault();
-    const bad = [...form.querySelectorAll('input, select, textarea')].filter(el => !check(el));
+    errEnviament.textContent = '';
+    const bad = [...form.querySelectorAll('input:not(.hp), select, textarea')].filter(el => !check(el));
     if (bad.length) { bad[0].focus(); return; }
-    const { to, href } = buildMail[form.id](form);
-    const link = card.querySelector('.to-link');
-    link.textContent = to; link.href = href;
-    card.querySelector('.to-open').href = href;
-    openMail(href);
-    card.classList.add('done');
-    card.querySelector('.success').focus({ preventScroll: true });
+
+    if (!SCRIPT_URL) { enviarPerCorreu(form, card); return; }
+
+    /* Envia les dades (i el CV) al full de Google */
+    btn.disabled = true;
+    btn.innerHTML = 'Enviant... <i class="ph-bold ph-circle-notch"></i>';
+    try {
+      const resp = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(await dadesFull[form.id](form)) });
+      const res = await resp.json();
+      if (!res.ok) throw new Error(res.error || 'Error');
+      mostrarExit(card, 'full');
+    } catch (err) {
+      const { href } = buildMail[form.id](form);
+      errEnviament.innerHTML = "No s'ha pogut enviar. Torna-ho a provar o <a href=\"" + href + '">envia-ho per correu</a>.';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = textBtn;
+    }
   });
   card.querySelector('[data-reset]').addEventListener('click', () => {
+    /* Si ja s'ha enviat al full, es buida el formulari per enviar-ne un altre */
+    if (card.querySelector('.success h3').textContent === 'Rebut. Gràcies!') {
+      form.reset();
+      if (fname) fname.textContent = '';
+    }
     card.classList.remove('done');
     form.querySelector('input').focus();
   });
